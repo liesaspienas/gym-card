@@ -442,7 +442,7 @@ footer{font-size:.8rem;color:var(--muted);text-align:center}
       if(!w) return type==='acc'?'1 × 6 at about 60%':(type==='comp'||type==='top'||type==='dl'||type==='pause')?'enter a weight to calculate':type;
       var p=function(f){return fmt(r5(w*f));};
       if(type==='top') return 'bar × 10 · '+p(.6)+' × 4 · '+p(.85)+' × 1';
-      if(type==='dl') return 'bar × 10 (optional) · '+p(.6)+' × 4 · '+p(.85)+' × 1';
+      if(type==='dl') return '30 × 10 · '+p(.6)+' × 4 · '+p(.85)+' × 1';
       if(type==='comp') return p(.5)+' × 8 · '+p(.75)+' × 3';
       if(type==='pause') return 'bar × 10 · '+p(.5)+' × 5 · '+p(.75)+' × 3';
       if(type==='acc') return '1 × 6 at '+p(.6)+' kg';
@@ -454,9 +454,9 @@ footer{font-size:.8rem;color:var(--muted);text-align:center}
       if(open) render(open);
     }
     function steps(type,w){
-      var P={top:[['bar',10,'45 s'],[.6,4,'1 min'],[.85,1,'2–3 min']],dl:[['bar',10,'45 s'],[.6,4,'1 min'],[.85,1,'2–3 min']],comp:[[.5,8,'1 min'],[.75,3,'2 min']],pause:[['bar',10,'45 s'],[.5,5,'1 min'],[.75,3,'2 min']],acc:[[.6,6,'1 min']]}[type];
+      var P={top:[['bar',10,'45 s'],[.6,4,'1 min'],[.85,1,'2–3 min']],dl:[['=30',10,'45 s'],[.6,4,'1 min'],[.85,1,'2–3 min']],comp:[[.5,8,'1 min'],[.75,3,'2 min']],pause:[['bar',10,'45 s'],[.5,5,'1 min'],[.75,3,'2 min']],acc:[[.6,6,'1 min']]}[type];
       if(!P) return null;
-      return P.map(function(x){ var kg = x[0]==='bar' ? 'bar' : (w ? fmt(r5(w*x[0])) : Math.round(x[0]*100)+'%'); return [kg, x[1], x[2]]; });
+      return P.map(function(x){ var kg = x[0]==='bar' ? 'bar' : (typeof x[0]==='string' ? x[0].slice(1) : (w ? fmt(r5(w*x[0])) : Math.round(x[0]*100)+'%')); return [kg, x[1], x[2]]; });
     }
     function dots(p){ return '<span class="tank">'+p.split('').map(function(c){return c==='f'?'<i class="f"></i>':c==='h'?'<i class="h"></i>':'<i></i>';}).join('')+'</span>'; }
     function rpe(v){ return '<span class="rp r'+String(v).split('–').pop().replace(/[^0-9]/g,'')+'">'+v+'</span>'; }
